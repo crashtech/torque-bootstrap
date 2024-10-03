@@ -23,17 +23,17 @@ export class Tab extends Controller {
 
   // Actions
   show({ params: { id } }: ToggleEvent) {
-    this.currentValue = id ?? ''
+    this.currentValue = id ?? ""
   }
 
   hide({ params: { id } }: ToggleEvent) {
     if (this.currentValue === id) {
-      this.currentValue = ''
+      this.currentValue = ""
     }
   }
 
   toggle(event: ToggleEvent) {
-    this[this.currentValue === event.params.id ? 'hide' : 'show'](event)
+    this[this.currentValue === event.params.id ? "hide" : "show"](event)
   }
 
   // Internals
@@ -46,15 +46,17 @@ export class Tab extends Controller {
   }
 
   private doToggle(id: string, state: boolean) {
-    this.hasTogglesTarget && this.togglesTargets.forEach(toggle => {
-      toggle.getAttribute("data-bs-tab-id-param") === id && toggle.classList.toggle("active", state)
-    })
+    this.hasTogglesTarget &&
+      this.togglesTargets.forEach((toggle) => {
+        toggle.getAttribute("data-bs-tab-id-param") === id && toggle.classList.toggle("active", state)
+      })
 
-    this.hasPanesTarget && this.panesTargets.forEach(pane => {
-      if (pane.id === id) {
-        pane.classList.toggle("active", state)
-        pane.classList.toggle("show", state)
-      }
-    })
+    this.hasPanesTarget &&
+      this.panesTargets.forEach((pane) => {
+        if (pane.id === id) {
+          pane.classList.toggle("active", state)
+          pane.classList.toggle("show", state)
+        }
+      })
   }
 }
