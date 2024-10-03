@@ -1,0 +1,55 @@
+{
+  "name": "@torque/bootstrap",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Bootstrap components built with Stimulus",
+  "author": "Carlos Silva",
+  "contributors": [
+    "Carlos Silva <me@carlosfsilva.com>"
+  ],
+  "homepage": "https://torque.dev/admin/bootstrap",
+  "keywords": [
+    "stimulus",
+    "bootstrap"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crashtech/torque-bootstrap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/crashtech/torque-bootstrap/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -fr dist",
+    "types": "tsc --noEmit false --declaration true --emitDeclarationOnly true --outDir dist/types",
+    "build": "npm run types && rollup -c",
+    "build:test": "tsc -b tsconfig.test.json",
+    "watch": "rollup -wc",
+    "prerelease": "npm run clean && npm run build && npm run build:test && git --no-pager diff && echo && npm pack --dry-run",
+    "release": "npm publish",
+    "lint": "eslint . --ext .ts",
+    "format": "npm run lint --fix"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-typescript": "^11.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8",
+    "rollup": "^2.53",
+    "rollup-plugin-terser": "^7.0.2",
+    "ts-loader": "^9.4.3",
+    "tslib": "^2.5.3",
+    "typescript": "^5.1.3"
+  }
+}
