@@ -6,6 +6,6 @@ import * as controllers from "./controllers"
 
 export function eagerLoadBootstrapControllers(application: Application, prefix = "bs"): void {
   for (const [key, controller] of Object.entries(controllers)) {
-    application.register(`${prefix}-${key.toLocaleLowerCase()}`, controller)
+    application.register(`${prefix}-${key.replace(/Controller$/, "").toLocaleLowerCase()}`, controller)
   }
 }

@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "lib": [ "dom", "dom.iterable", "es2015", "scripthost" ],
+    "lib": [ "dom", "dom.iterable", "es2023", "scripthost" ],
     "module": "es2015",
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "rootDir": "src",
     "strict": true,
-    "target": "es2017",
+    "target": "es2023",
     "removeComments": true,
     "outDir": "dist",
     "baseUrl": ".",

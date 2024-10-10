@@ -1,3 +1,3 @@
 export { eagerLoadBootstrapControllers } from "./register"
 
-export { Tab as TabController } from "./tab"
+export { TabController } from "./tab_controller"

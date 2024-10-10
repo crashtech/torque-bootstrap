@@ -1,3 +1,3 @@
 // List of all available controllers
 
-export { Tab } from "./tab"
+export { TabController } from "./tab_controller"
