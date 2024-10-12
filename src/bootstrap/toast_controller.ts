@@ -64,9 +64,13 @@ export default class ToastController extends Controller {
     if (element.classList.contains("fade")) {
       element.classList.add("hide")
       element.style.display = "block"
-      element.addEventListener("transitionend", () => {
-        element.remove()
-      }, { once: true })
+      element.addEventListener(
+        "transitionend",
+        () => {
+          element.remove()
+        },
+        { once: true }
+      )
     } else {
       element.remove()
     }

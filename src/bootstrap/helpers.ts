@@ -5,13 +5,13 @@ export function resolveTarget(element: HTMLElement, baseAttribute: string): stri
   let target = element.getAttribute(baseAttribute)
 
   if ((!target || target === "#") && element.hasAttribute("href")) {
-    let hrefValue = element.getAttribute("href")
+    const hrefValue = element.getAttribute("href")
 
-    if (!hrefValue || !hrefValue.includes('#')) {
+    if (!hrefValue || !hrefValue.includes("#")) {
       return ""
     }
 
-    target = hrefValue.split('#')[1].trim()
+    target = hrefValue.split("#")[1].trim()
   }
 
   return target || ""

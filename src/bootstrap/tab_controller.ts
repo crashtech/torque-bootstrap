@@ -17,7 +17,7 @@ export default class TabController extends Controller {
   // Initialization
   connect() {
     if (this.hasTogglesTarget && !this.currentValue) {
-      const current = this.togglesTargets.findLast(toggle => toggle.classList.contains("active"))
+      const current = this.togglesTargets.findLast((toggle) => toggle.classList.contains("active"))
       this.currentValue = current ? resolveTarget(current, "aria-controls") : ""
     }
   }
@@ -47,7 +47,7 @@ export default class TabController extends Controller {
   toggle(value: UIEvent): void
   toggle(value: UIEvent | string) {
     const ref = this._resolveTarget(value)
-    this.currentValue = (this.currentValue === ref) ? "" : ref
+    this.currentValue = this.currentValue === ref ? "" : ref
   }
 
   // Internals
@@ -64,20 +64,22 @@ export default class TabController extends Controller {
   }
 
   private _setState(id: string, isOpen: boolean) {
-    this.hasTogglesTarget && this.togglesTargets.forEach((toggle) => {
-      if (resolveTarget(toggle, "aria-controls") === id) {
-        toggle.classList.toggle("active", isOpen)
-        toggleAttribute(toggle, "aria-selected", isOpen)
-        toggleAttribute(toggle, "tabindex", isOpen, "-1")
-      }
-    })
+    this.hasTogglesTarget &&
+      this.togglesTargets.forEach((toggle) => {
+        if (resolveTarget(toggle, "aria-controls") === id) {
+          toggle.classList.toggle("active", isOpen)
+          toggleAttribute(toggle, "aria-selected", isOpen)
+          toggleAttribute(toggle, "tabindex", isOpen, "-1")
+        }
+      })
 
-    this.hasPanesTarget && this.panesTargets.forEach((pane) => {
-      if (pane.id === id) {
-        pane.classList.toggle("active", isOpen)
-        pane.classList.toggle("show", isOpen)
-        pane.setAttribute("aria-hidden", (!isOpen).toString())
-      }
-    })
+    this.hasPanesTarget &&
+      this.panesTargets.forEach((pane) => {
+        if (pane.id === id) {
+          pane.classList.toggle("active", isOpen)
+          pane.classList.toggle("show", isOpen)
+          pane.setAttribute("aria-hidden", (!isOpen).toString())
+        }
+      })
   }
 }

@@ -22,6 +22,6 @@ export default class ButtonController extends Controller {
 
   // Actions
   toggle(value?: boolean) {
-    this.activeValue = (typeof value === "boolean") ? value : !this.activeValue
+    this.activeValue = typeof value === "boolean" ? value : !this.activeValue
   }
 }

@@ -44,6 +44,6 @@ export default class DropdownController extends Controller {
   toggle(value: UIEvent): void
   toggle(value?: boolean): void
   toggle(value?: UIEvent | boolean) {
-    this.openValue = (typeof value === "boolean") ? value : !this.openValue
+    this.openValue = typeof value === "boolean" ? value : !this.openValue
   }
 }

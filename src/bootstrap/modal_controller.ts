@@ -72,17 +72,21 @@ export default class ModalController extends Controller {
       this.modalTarget.style.overflowY = "hidden"
       this.modalTarget.classList.add("modal-static")
 
-      this.modalTarget.addEventListener("transitionend", () => {
-        this.modalTarget.classList.remove("modal-static")
-        this.modalTarget.style.overflowY = ""
-      }, { once: true })
+      this.modalTarget.addEventListener(
+        "transitionend",
+        () => {
+          this.modalTarget.classList.remove("modal-static")
+          this.modalTarget.style.overflowY = ""
+        },
+        { once: true }
+      )
     }
   }
 
   toggle(value: UIEvent): void
   toggle(value?: boolean): void
   toggle(value?: UIEvent | boolean) {
-    this.openValue = (typeof value === "boolean") ? value : !this.openValue
+    this.openValue = typeof value === "boolean" ? value : !this.openValue
   }
 
   // Internals
@@ -98,9 +102,13 @@ export default class ModalController extends Controller {
     this.modalTarget.classList.toggle("show", isOpen)
 
     if (!isOpen) {
-      this.modalTarget.addEventListener("transitionend", () => {
-        this.modalTarget.style.display = "none"
-      }, { once: true })
+      this.modalTarget.addEventListener(
+        "transitionend",
+        () => {
+          this.modalTarget.style.display = "none"
+        },
+        { once: true }
+      )
     }
   }
 
@@ -112,10 +120,14 @@ export default class ModalController extends Controller {
 
   private _removeBackdrop() {
     if (this.backdrop) {
-      this.backdrop.addEventListener("transitionend", () => {
-        this.backdrop?.remove()
-        this.backdrop = undefined
-      }, { once: true })
+      this.backdrop.addEventListener(
+        "transitionend",
+        () => {
+          this.backdrop?.remove()
+          this.backdrop = undefined
+        },
+        { once: true }
+      )
 
       this.backdrop.classList.remove("show")
     }

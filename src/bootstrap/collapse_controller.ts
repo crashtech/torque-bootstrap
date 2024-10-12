@@ -50,19 +50,20 @@ export default class CollapseController extends Controller {
 
   // Internals
   private _resolveTargets(value: UIEvent | string, others?: string[]): Set<string> {
-    value = (typeof value === "string") ? value : resolveTarget(value.target as HTMLElement, "aria-controls")
+    value = typeof value === "string" ? value : resolveTarget(value.target as HTMLElement, "aria-controls")
     return new Set([...value.split(/,|\s+/), ...(others || [])])
   }
 
   private _toggle(ids: Set<string>, isOpen?: boolean) {
-    this.hasTargetsTarget && this.targetsTargets.forEach(element => {
-      ids.has(element.id) && !element.classList.contains("collapsing") && this._setState(element, isOpen)
-    })
+    this.hasTargetsTarget &&
+      this.targetsTargets.forEach((element) => {
+        ids.has(element.id) && !element.classList.contains("collapsing") && this._setState(element, isOpen)
+      })
   }
 
   private _setState(element: HTMLElement, isOpen?: boolean) {
     const dimension = element.getAttribute(this.dimensionParam) as typeof this.dimensionValue
-    isOpen = (typeof isOpen === "boolean") ? isOpen : !element.classList.contains("show")
+    isOpen = typeof isOpen === "boolean" ? isOpen : !element.classList.contains("show")
 
     element.style[dimension] = isOpen ? "0" : this._getFullSizeOf(element, dimension, false)
     element.offsetHeight // Trigger reflow
@@ -71,15 +72,19 @@ export default class CollapseController extends Controller {
     element.classList.remove("collapse", "show")
     toggleAttribute(element, "aria-expanded", isOpen)
 
-    element.addEventListener("transitionend", () => {
-      element.classList.add("collapse")
-      element.classList.remove("collapsing")
-      isOpen && element.classList.add("show")
+    element.addEventListener(
+      "transitionend",
+      () => {
+        element.classList.add("collapse")
+        element.classList.remove("collapsing")
+        isOpen && element.classList.add("show")
 
-      if (isOpen) {
-        element.style[dimension] = ''
-      }
-    }, { once: true })
+        if (isOpen) {
+          element.style[dimension] = ""
+        }
+      },
+      { once: true }
+    )
 
     console.log(this._getFullSizeOf(element, dimension, true))
     element.style[dimension] = isOpen ? this._getFullSizeOf(element, dimension, true) : ""

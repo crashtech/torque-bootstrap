@@ -9,7 +9,7 @@ function clearAnimationClasses(this: HTMLElement) {
     CarouselController.cssClasses.directionLtr,
     CarouselController.cssClasses.directionRtl,
     CarouselController.cssClasses.orderLtr,
-    CarouselController.cssClasses.orderRtl,
+    CarouselController.cssClasses.orderRtl
   )
 }
 
@@ -19,7 +19,7 @@ export default class CarouselController extends Controller {
     current: Number,
     interval: { type: Number, default: 3000 },
     wrap: { type: Boolean, default: true },
-    direction: { type: String, default: (document.documentElement.dir === "rtl" ? "right" : "left") },
+    direction: { type: String, default: document.documentElement.dir === "rtl" ? "right" : "left" },
     paused: Boolean,
   }
 
@@ -68,7 +68,7 @@ export default class CarouselController extends Controller {
   }
 
   currentValueChanged(newValue: number, oldValue?: number) {
-    let order = (typeof oldValue === "undefined") ? oldValue : (newValue > oldValue ? true : false)
+    let order = typeof oldValue === "undefined" ? oldValue : newValue > oldValue ? true : false
     order = this.wrapping ? !order : order
 
     if (typeof oldValue === "number") {
@@ -91,7 +91,7 @@ export default class CarouselController extends Controller {
 
   // Actions
   toggle(value?: boolean) {
-    this.pausedValue = (typeof value === "boolean") ? value : !this.pausedValue
+    this.pausedValue = typeof value === "boolean" ? value : !this.pausedValue
   }
 
   pause() {
@@ -113,7 +113,7 @@ export default class CarouselController extends Controller {
   to(event: number): void
   to(event: ToEvent): void
   to(value: ToEvent | number) {
-    const slide = (typeof value === "number") ? value : value.params.slide
+    const slide = typeof value === "number" ? value : value.params.slide
 
     if (typeof slide !== "number") {
       console.error(`You must provide a data-${this.identifier}-slide-param with a valid number.`)

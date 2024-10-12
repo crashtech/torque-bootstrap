@@ -53,7 +53,7 @@ export default class OffcanvasController extends Controller {
   toggle(value: UIEvent): void
   toggle(value?: boolean): void
   toggle(value?: UIEvent | boolean) {
-    this.openValue = (typeof value === "boolean") ? value : !this.openValue
+    this.openValue = typeof value === "boolean" ? value : !this.openValue
   }
 
   // Internals
@@ -70,12 +70,16 @@ export default class OffcanvasController extends Controller {
   private _hide() {
     this._removeBackdrop()
 
-    this.canvasTarget.addEventListener("transitionend", () => {
-      this.canvasTarget.style.visibility = "hidden"
-      this.canvasTarget.setAttribute("aria-hidden", "")
-      this.canvasTarget.removeAttribute("aria-modal")
-      this.canvasTarget.removeAttribute("role")
-    }, { once: true })
+    this.canvasTarget.addEventListener(
+      "transitionend",
+      () => {
+        this.canvasTarget.style.visibility = "hidden"
+        this.canvasTarget.setAttribute("aria-hidden", "")
+        this.canvasTarget.removeAttribute("aria-modal")
+        this.canvasTarget.removeAttribute("role")
+      },
+      { once: true }
+    )
 
     this.canvasTarget.classList.remove("show")
   }
@@ -89,10 +93,14 @@ export default class OffcanvasController extends Controller {
 
   private _removeBackdrop() {
     if (this.backdrop) {
-      this.backdrop.addEventListener("transitionend", () => {
-        this.backdrop?.remove()
-        this.backdrop = undefined
-      }, { once: true })
+      this.backdrop.addEventListener(
+        "transitionend",
+        () => {
+          this.backdrop?.remove()
+          this.backdrop = undefined
+        },
+        { once: true }
+      )
 
       this.backdrop.classList.remove("show")
     }
