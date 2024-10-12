@@ -1,8 +1,8 @@
 // Bootstrap Tab
 import { Controller } from "@hotwired/stimulus"
-import { resolveTarget } from "./helpers"
+import { resolveTarget, toggleAttribute } from "./helpers"
 
-export class TabController extends Controller {
+export default class TabController extends Controller {
   static targets = ["toggles", "panes"]
   static values = { current: String }
 
@@ -29,22 +29,32 @@ export class TabController extends Controller {
   }
 
   // Actions
-  show({ target }: UIEvent) {
-    this.currentValue = resolveTarget(target as HTMLElement, "aria-controls")
+  show(value: string): void
+  show(value: UIEvent): void
+  show(value: UIEvent | string) {
+    this.currentValue = this._resolveTarget(value)
   }
 
-  hide({ target }: UIEvent) {
-    if (this.currentValue === resolveTarget(target as HTMLElement, "aria-controls")) {
+  hide(value: string): void
+  hide(value: UIEvent): void
+  hide(value: UIEvent | string) {
+    if (this.currentValue === this._resolveTarget(value)) {
       this.currentValue = ""
     }
   }
 
-  toggle({ target }: UIEvent) {
-    const ref = resolveTarget(target as HTMLElement, "aria-controls")
+  toggle(value: string): void
+  toggle(value: UIEvent): void
+  toggle(value: UIEvent | string) {
+    const ref = this._resolveTarget(value)
     this.currentValue = (this.currentValue === ref) ? "" : ref
   }
 
   // Internals
+  private _resolveTarget(value: UIEvent | string): string {
+    return typeof value === "string" ? value : resolveTarget(value.target as HTMLElement, "aria-controls")
+  }
+
   private _activate(id?: string) {
     id && this._setState(id, true)
   }
@@ -53,26 +63,20 @@ export class TabController extends Controller {
     id && this._setState(id, false)
   }
 
-  private _setState(id: string, state: boolean) {
+  private _setState(id: string, isOpen: boolean) {
     this.hasTogglesTarget && this.togglesTargets.forEach((toggle) => {
       if (resolveTarget(toggle, "aria-controls") === id) {
-        toggle.classList.toggle("active", state)
-
-        if(state) {
-          toggle.setAttribute("aria-selected", "")
-          toggle.removeAttribute("tabindex")
-        } else {
-          toggle.removeAttribute("aria-selected")
-          toggle.setAttribute("tabindex", "-1")
-        }
+        toggle.classList.toggle("active", isOpen)
+        toggleAttribute(toggle, "aria-selected", isOpen)
+        toggleAttribute(toggle, "tabindex", isOpen, "-1")
       }
     })
 
     this.hasPanesTarget && this.panesTargets.forEach((pane) => {
       if (pane.id === id) {
-        pane.classList.toggle("active", state)
-        pane.classList.toggle("show", state)
-        pane.setAttribute("aria-hidden", (!state).toString())
+        pane.classList.toggle("active", isOpen)
+        pane.classList.toggle("show", isOpen)
+        pane.setAttribute("aria-hidden", (!isOpen).toString())
       }
     })
   }

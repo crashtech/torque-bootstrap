@@ -13,19 +13,21 @@ export default [
         name: "Torque Bootstrap",
         file: "dist/bootstrap.umd.js",
         format: "umd",
-        banner
+        banner,
+        globals: { "@hotwired/stimulus": 'stimulus' },
       },
       {
         file: "dist/bootstrap.js",
         format: "es",
-        banner
+        banner,
+        globals: { "@hotwired/stimulus": 'stimulus' },
       },
     ],
     context: "window",
     external: ["@hotwired/stimulus"],
     plugins: [
       resolve(),
-      typescript()
+      typescript(),
     ]
   },
   {
@@ -34,7 +36,8 @@ export default [
       file: "dist/bootstrap.min.js",
       format: "es",
       banner,
-      sourcemap: true
+      sourcemap: true,
+      globals: { "@hotwired/stimulus": 'stimulus' },
     },
     context: "window",
     external: ["@hotwired/stimulus"],
