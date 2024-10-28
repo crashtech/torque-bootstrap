@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Torque Bootstrap | Scrollspy</title>
+
+  <!-- Load CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- Setup Importmap -->
+  <script type="importmap" data-turbo-track="reload">{
+    "imports": {
+      "@hotwired/stimulus": "https://unpkg.com/@hotwired/stimulus@3.2.1/dist/stimulus.js",
+      "@popperjs/core": "https://unpkg.com/@popperjs/core@2.11.8/dist/esm/index.js",
+      "@torque/bootstrap": "/dist/bootstrap.js"
+    }
+  }</script>
+
+  <!-- Load JS dependencies -->
+  <link rel="modulepreload" href="https://unpkg.com/@popperjs/core@2.11.8/dist/esm/index.js">
+  <link rel="modulepreload" href="https://unpkg.com/@hotwired/stimulus@3.2.1/dist/stimulus.js">
+  <link rel="modulepreload" href="/dist/bootstrap.js">
+</head>
+<body>
+  <!-- data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" -->
+  <div data-controller="bs-scrollspy">
+    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link" href="#scrollspyHeading1" data-bs-scrollspy-target="items">First</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#scrollspyHeading2" data-bs-scrollspy-target="items">Second</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#scrollspyHeading3" data-bs-scrollspy-target="items">Third</a></li>
+            <li><a class="dropdown-item" href="#scrollspyHeading4" data-bs-scrollspy-target="items">Fourth</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#scrollspyHeading5" data-bs-scrollspy-target="items">Fifth</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <div data-bs-spy="scroll" data-bs-scrollspy-target="scroll" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0" style="max-height: 200px; overflow-y: auto">
+      <h4 id="scrollspyHeading1" data-bs-scrollspy-target="targets">First heading</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ornare est convallis imperdiet volutpat. In at odio viverra, sollicitudin neque sit amet, auctor lacus. Vivamus ex tellus, euismod quis tellus a, blandit faucibus metus. Etiam mattis luctus porttitor. Suspendisse imperdiet nunc ac nibh condimentum malesuada. Etiam gravida nisl ex, a tempus nibh volutpat eget. Vivamus non nibh ullamcorper elit aliquet volutpat. Aliquam eget erat a metus convallis vulputate. Donec faucibus sit amet ante luctus blandit. In lobortis ullamcorper nulla, vel pulvinar neque fermentum sed. Praesent consectetur magna at dolor tempus, non maximus nunc ultrices.</p>
+      <h4 id="scrollspyHeading2" data-bs-scrollspy-target="targets">Second heading</h4>
+      <p>Nulla accumsan mi velit, id porttitor est mattis id. Cras elementum libero id convallis consequat. Duis non nibh iaculis, auctor arcu non, imperdiet risus. Mauris a justo eget odio accumsan auctor id non velit. In non libero vestibulum risus gravida consequat. Duis tristique tincidunt efficitur. Donec lacinia efficitur nisl, ut posuere nunc fringilla at. Etiam ut mi vel nisi dictum blandit quis sed tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+      <h4 id="scrollspyHeading3" data-bs-scrollspy-target="targets">Third heading</h4>
+      <p>Cras mattis ipsum vel neque tempus, vel vehicula turpis semper. In mattis diam at mauris tempor aliquet. Cras iaculis lacinia mi in viverra. Suspendisse sit amet neque pellentesque, semper nisl eu, congue diam. Duis auctor lorem nec ante vehicula, in pharetra mauris laoreet. Phasellus sit amet orci pretium, laoreet purus id, sodales ante. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent non erat ut velit euismod porttitor sit amet sed ex. Ut placerat magna vitae rutrum volutpat. Aliquam a arcu eget risus rutrum venenatis. Aliquam erat volutpat.</p>
+      <h4 id="scrollspyHeading4" data-bs-scrollspy-target="targets">Fourth heading</h4>
+      <p>Praesent auctor metus a finibus commodo. Ut sed sem sed ligula scelerisque semper. Suspendisse potenti. Nunc sapien ipsum, laoreet eget lectus quis, tincidunt rhoncus sapien. Mauris maximus, nisi quis sodales ornare, nulla massa fermentum erat, vitae placerat sapien tortor iaculis tortor. Duis purus risus, rhoncus venenatis tempus quis, pulvinar non elit. Mauris placerat nec mi lacinia molestie. Donec eu tortor et mauris scelerisque accumsan. Sed dignissim quam ac mi lacinia sollicitudin. Aliquam at posuere odio. Aenean vel velit finibus ligula porttitor pharetra. Mauris molestie, nunc sit amet mollis finibus, nibh velit venenatis velit, id iaculis arcu mauris ut justo. Vivamus tortor ante, accumsan a erat in, porta placerat risus. Sed aliquet suscipit sodales.</p>
+      <h4 id="scrollspyHeading5" data-bs-scrollspy-target="targets">Fifth heading</h4>
+      <p>Sed pretium lectus id gravida tincidunt. Nullam non consectetur libero, eu viverra enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut nibh felis, tincidunt a euismod nec, hendrerit vitae enim. Praesent aliquet elit risus, ut hendrerit erat interdum sed. Nam viverra nulla dignissim sem vestibulum, non malesuada tortor laoreet. Duis ac purus lectus. Sed et justo laoreet, rhoncus dolor hendrerit, volutpat lacus. Donec ultrices tellus purus. Sed efficitur faucibus ipsum vitae aliquet. Curabitur sapien turpis, dictum non magna eu, volutpat dignissim nisl. Vestibulum maximus, mi congue porta bibendum, mauris nisi bibendum ante, ac molestie metus neque vitae ex.</p>
+    </div>
+  </div>
+
+  <!-- Local controller initialization -->
+  <script type="module">
+    import { Application } from "@hotwired/stimulus";
+    import { ScrollspyController } from "@torque/bootstrap";
+
+    window.Stimulus = Application.start();
+    Stimulus.register("bs-scrollspy", ScrollspyController);
+  </script>
+</body>
+</html>

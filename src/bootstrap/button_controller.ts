@@ -1,5 +1,6 @@
 // Bootstrap Button
 import { Controller } from "@hotwired/stimulus"
+import { toggleAttribute } from "./helpers"
 
 export default class ButtonController extends Controller {
   static values = { active: Boolean }
@@ -16,6 +17,7 @@ export default class ButtonController extends Controller {
   // Callbacks
   activeValueChanged(newValue: boolean, oldValue: boolean) {
     if (newValue !== oldValue && typeof oldValue !== "undefined") {
+      toggleAttribute(this.element, "aria-pressed", newValue)
       this.element.classList.toggle("active", newValue)
     }
   }

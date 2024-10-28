@@ -14,17 +14,23 @@ export default [
         file: "dist/bootstrap.umd.js",
         format: "umd",
         banner,
-        globals: { "@hotwired/stimulus": 'stimulus' },
+        globals: {
+          "@hotwired/stimulus": "stimulus",
+          "@popperjs/core": "Popper"
+        },
       },
       {
         file: "dist/bootstrap.js",
         format: "es",
         banner,
-        globals: { "@hotwired/stimulus": 'stimulus' },
+        globals: {
+          "@hotwired/stimulus": "stimulus",
+          "@popperjs/core": "Popper"
+        },
       },
     ],
     context: "window",
-    external: ["@hotwired/stimulus"],
+    external: ["@hotwired/stimulus", "@popperjs/core"],
     plugins: [
       resolve(),
       typescript(),
@@ -37,10 +43,13 @@ export default [
       format: "es",
       banner,
       sourcemap: true,
-      globals: { "@hotwired/stimulus": 'stimulus' },
+      globals: {
+        "@hotwired/stimulus": "stimulus",
+        "@popperjs/core": "Popper"
+      },
     },
     context: "window",
-    external: ["@hotwired/stimulus"],
+    external: ["@hotwired/stimulus", "@popperjs/core"],
     plugins: [
       resolve(),
       typescript(),

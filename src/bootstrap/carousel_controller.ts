@@ -1,6 +1,6 @@
 // Bootstrap Carousel
 import { Controller } from "@hotwired/stimulus"
-import { toggleAttribute } from "./helpers"
+import { onTransitionEnd, toggleAttribute } from "./helpers"
 
 export type ToEvent = UIEvent & { params: { slide?: number } }
 
@@ -186,6 +186,7 @@ export default class CarouselController extends Controller {
 
   private _animate(element: HTMLElement, isVisible: boolean, animateLtr: boolean) {
     const [directionClass, orderClass] = this._animationClasses(animateLtr)
+    onTransitionEnd(element, () => element.classList.toggle("active", isVisible))
 
     if (isVisible) {
       element.classList.add(orderClass)
@@ -194,8 +195,6 @@ export default class CarouselController extends Controller {
     } else {
       element.classList.add(directionClass)
     }
-
-    element.addEventListener("transitionend", () => element.classList.toggle("active", isVisible), { once: true })
   }
 
   private _animationClasses(ltr?: boolean): [string, string] {

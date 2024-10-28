@@ -1,5 +1,6 @@
 // Bootstrap Alert
 import { Controller } from "@hotwired/stimulus"
+import { onTransitionEnd } from "./helpers"
 
 export default class AlertController extends Controller {
   // Properties
@@ -12,8 +13,8 @@ export default class AlertController extends Controller {
     if (!this.isAnimated) {
       this.element.remove()
     } else {
+      onTransitionEnd(this.element, this.element.remove)
       this.element.classList.remove("show")
-      this.element.addEventListener("transitionend", this.element.remove, { once: true })
     }
   }
 }

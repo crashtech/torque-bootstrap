@@ -1,6 +1,6 @@
 // Bootstrap Modal
 import { Controller } from "@hotwired/stimulus"
-import { toggleAttribute } from "./helpers"
+import { onTransitionEnd, toggleAttribute } from "./helpers"
 
 export default class ModalController extends Controller {
   static targets = ["modal"]
@@ -34,10 +34,6 @@ export default class ModalController extends Controller {
   }
 
   // Callbacks
-  disconnect() {
-    this.isOpen && this.hide()
-  }
-
   openValueChanged(newValue: boolean, oldValue?: boolean) {
     if (this.hasModalTarget && typeof oldValue !== "undefined") {
       this._setState(newValue)
@@ -94,22 +90,14 @@ export default class ModalController extends Controller {
     this.hasBackdrop && (isOpen ? this._createBackdrop() : this._removeBackdrop())
 
     this.modalTarget.style.display = "block"
+    isOpen && onTransitionEnd(this.modalTarget, () => this.modalTarget.style.display = "none")
+
     toggleAttribute(this.modalTarget, "aria-hidden", !isOpen)
     toggleAttribute(this.modalTarget, "aria-modal", isOpen)
     toggleAttribute(this.modalTarget, "role", isOpen, "dialog")
 
     this.modalTarget.offsetHeight // Trigger reflow
     this.modalTarget.classList.toggle("show", isOpen)
-
-    if (!isOpen) {
-      this.modalTarget.addEventListener(
-        "transitionend",
-        () => {
-          this.modalTarget.style.display = "none"
-        },
-        { once: true }
-      )
-    }
   }
 
   private _createBackdrop() {
@@ -120,14 +108,10 @@ export default class ModalController extends Controller {
 
   private _removeBackdrop() {
     if (this.backdrop) {
-      this.backdrop.addEventListener(
-        "transitionend",
-        () => {
-          this.backdrop?.remove()
-          this.backdrop = undefined
-        },
-        { once: true }
-      )
+      onTransitionEnd(this.backdrop, () => {
+        this.backdrop?.remove()
+        this.backdrop = undefined
+      })
 
       this.backdrop.classList.remove("show")
     }

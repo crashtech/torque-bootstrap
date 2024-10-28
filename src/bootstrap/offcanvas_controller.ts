@@ -1,5 +1,6 @@
 // Bootstrap Offcanvas
 import { Controller } from "@hotwired/stimulus"
+import { onTransitionEnd } from "./helpers"
 
 export default class OffcanvasController extends Controller {
   static targets = ["canvas"]
@@ -70,16 +71,12 @@ export default class OffcanvasController extends Controller {
   private _hide() {
     this._removeBackdrop()
 
-    this.canvasTarget.addEventListener(
-      "transitionend",
-      () => {
-        this.canvasTarget.style.visibility = "hidden"
-        this.canvasTarget.setAttribute("aria-hidden", "")
-        this.canvasTarget.removeAttribute("aria-modal")
-        this.canvasTarget.removeAttribute("role")
-      },
-      { once: true }
-    )
+    onTransitionEnd(this.canvasTarget, () => {
+      this.canvasTarget.style.visibility = "hidden"
+      this.canvasTarget.setAttribute("aria-hidden", "")
+      this.canvasTarget.removeAttribute("aria-modal")
+      this.canvasTarget.removeAttribute("role")
+    })
 
     this.canvasTarget.classList.remove("show")
   }
@@ -93,14 +90,10 @@ export default class OffcanvasController extends Controller {
 
   private _removeBackdrop() {
     if (this.backdrop) {
-      this.backdrop.addEventListener(
-        "transitionend",
-        () => {
-          this.backdrop?.remove()
-          this.backdrop = undefined
-        },
-        { once: true }
-      )
+      onTransitionEnd(this.backdrop, () => {
+        this.backdrop?.remove()
+        this.backdrop = undefined
+      })
 
       this.backdrop.classList.remove("show")
     }

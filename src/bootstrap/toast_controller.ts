@@ -1,5 +1,6 @@
 // Bootstrap Toast
 import { Controller } from "@hotwired/stimulus"
+import { onTransitionEnd } from "./helpers"
 
 export default class ToastController extends Controller {
   static targets = ["toasts"]
@@ -34,11 +35,7 @@ export default class ToastController extends Controller {
     }
 
     const toast = (value.target as HTMLElement).closest<HTMLElement>(`[data-${this.identifier}-target="toasts"]`)
-    if (!toast) {
-      return console.warn("No toast found to dismiss")
-    }
-
-    this._hide(toast)
+    toast ? this._hide(toast) : console.warn("No toast found to dismiss")
   }
 
   // Internals
@@ -62,15 +59,10 @@ export default class ToastController extends Controller {
     element.classList.remove("show")
 
     if (element.classList.contains("fade")) {
+      onTransitionEnd(element, element.remove)
+
       element.classList.add("hide")
       element.style.display = "block"
-      element.addEventListener(
-        "transitionend",
-        () => {
-          element.remove()
-        },
-        { once: true }
-      )
     } else {
       element.remove()
     }

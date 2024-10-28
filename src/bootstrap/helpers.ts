@@ -17,7 +17,11 @@ export function resolveTarget(element: HTMLElement, baseAttribute: string): stri
   return target || ""
 }
 
-export function toggleAttribute(element: HTMLElement, attribute: string, state: boolean, activeValue = ""): void {
+export function onTransitionEnd(element: Element, callback: () => void): void {
+  element.addEventListener("transitionend", callback, { once: true })
+}
+
+export function toggleAttribute(element: Element, attribute: string, state: boolean, activeValue = ""): void {
   if (state) {
     element.setAttribute(attribute, activeValue)
   } else {

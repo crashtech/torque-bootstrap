@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Torque Bootstrap | Tab</title>
+
+  <!-- Load CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- Setup Importmap -->
+  <script type="importmap" data-turbo-track="reload">{
+    "imports": {
+      "@hotwired/stimulus": "https://unpkg.com/@hotwired/stimulus@3.2.1/dist/stimulus.js",
+      "@popperjs/core": "https://unpkg.com/@popperjs/core@2.11.8/dist/esm/index.js",
+      "@torque/bootstrap": "/dist/bootstrap.js"
+    }
+  }</script>
+
+  <!-- Load JS dependencies -->
+  <link rel="modulepreload" href="https://unpkg.com/@popperjs/core@2.11.8/dist/esm/index.js">
+  <link rel="modulepreload" href="https://unpkg.com/@hotwired/stimulus@3.2.1/dist/stimulus.js">
+  <link rel="modulepreload" href="/dist/bootstrap.js">
+</head>
+<body>
+  <div class="row" data-controller="bs-tab">
+    <div class="col-4">
+      <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action" id="list-home-list" data-bs-tab-target="toggles" data-action="bs-tab#show" href="#list-home" role="tab">Home</a>
+        <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-tab-target="toggles" data-action="bs-tab#show" href="#list-profile" role="tab">Profile</a>
+        <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-tab-target="toggles" data-action="bs-tab#show" href="#list-messages" role="tab">Messages</a>
+        <a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-tab-target="toggles" data-action="bs-tab#show" href="#list-settings" role="tab">Settings</a>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade" id="list-home" role="tabpanel" aria-labelledby="list-home-list" data-bs-tab-target="panes">
+          1. Quisque id purus nunc. Nullam blandit egestas ipsum. In condimentum consectetur massa et ultrices. Cras lacinia eleifend nunc, at hendrerit odio consectetur quis. Aenean a velit quis orci convallis scelerisque vitae eu sem. Suspendisse auctor mi nec mauris venenatis lacinia. Suspendisse auctor feugiat porttitor. Donec purus neque, lacinia et ante a, facilisis euismod arcu. Proin mi mi, egestas non urna a, pharetra auctor metus. Donec luctus sapien ut maximus feugiat. Nullam pulvinar felis et sapien lobortis, vel convallis metus consectetur. Ut odio est, sollicitudin at purus id, tristique commodo est. Quisque feugiat lobortis eros a scelerisque.
+        </div>
+        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list" data-bs-tab-target="panes">
+          2. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Integer tellus velit, suscipit efficitur tellus ac, pretium interdum lacus. Nulla iaculis elementum mi, sed laoreet lectus semper fringilla. Pellentesque dignissim erat non ipsum auctor luctus et non nisl. Maecenas non imperdiet purus. Integer eu scelerisque urna. Sed vitae vehicula ante, eget consectetur ipsum. Nam nisl orci, vestibulum volutpat maximus at, fringilla at tellus. Cras imperdiet diam dolor, sit amet semper velit hendrerit vitae. Sed ultricies consequat consectetur. Pellentesque a neque a orci consectetur tempus. In hac habitasse platea dictumst. Maecenas elementum lobortis placerat. Ut blandit dolor at sagittis efficitur. Integer ut lorem placerat, mollis magna sed, vestibulum velit.
+        </div>
+        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list" data-bs-tab-target="panes">
+          3. Sed vulputate aliquam iaculis. Nulla tempor faucibus purus sit amet auctor. Maecenas efficitur viverra porta. Proin dignissim eu augue vel imperdiet. Morbi volutpat dui eu gravida facilisis. Donec malesuada libero id vulputate vestibulum. Maecenas consectetur dignissim ultrices. Proin a quam aliquet, mattis urna ornare, congue dui. Sed efficitur ac nisi pharetra consectetur. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc tincidunt convallis tempor.
+        </div>
+        <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list" data-bs-tab-target="panes">
+          4. Cras ut turpis at sem euismod pharetra. Proin pretium, elit et pretium efficitur, dui lorem dignissim lacus, at semper arcu ligula vel dolor. Quisque dictum dapibus nisi, nec fringilla erat pretium sed. Cras sed iaculis est. Vestibulum elit diam, feugiat a augue sit amet, posuere eleifend ipsum. Proin dignissim pulvinar gravida. Phasellus erat elit, iaculis at nunc ac, dictum tincidunt quam. Donec ligula ante, porttitor ut accumsan ac, varius sed nisl. Nulla vitae faucibus urna. In diam dui, sagittis a risus nec, eleifend accumsan enim. Nam lectus tortor, volutpat nec fringilla pulvinar, ultrices vel mi. Quisque placerat est felis, ut efficitur tellus porttitor eu. Quisque laoreet felis eu mi tristique sollicitudin. Nam lacus dolor, viverra nec libero a, faucibus auctor eros. Pellentesque velit justo, imperdiet a justo ut, pulvinar dictum mi.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Local controller initialization -->
+  <script type="module">
+    import { Application } from "@hotwired/stimulus";
+    import { TabController } from "@torque/bootstrap";
+
+    window.Stimulus = Application.start();
+    Stimulus.register("bs-tab", TabController);
+  </script>
+</body>
+</html>

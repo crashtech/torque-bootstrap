@@ -1,6 +1,6 @@
 // Bootstrap Collapse
 import { Controller } from "@hotwired/stimulus"
-import { resolveTarget, toggleAttribute } from "./helpers"
+import { onTransitionEnd, resolveTarget, toggleAttribute } from "./helpers"
 
 export default class CollapseController extends Controller {
   static targets = ["targets"]
@@ -65,26 +65,22 @@ export default class CollapseController extends Controller {
     const dimension = element.getAttribute(this.dimensionParam) as typeof this.dimensionValue
     isOpen = typeof isOpen === "boolean" ? isOpen : !element.classList.contains("show")
 
+    onTransitionEnd(element, () => {
+      element.classList.add("collapse")
+      element.classList.remove("collapsing")
+      isOpen && element.classList.add("show")
+
+      if (isOpen) {
+        element.style[dimension] = ""
+      }
+    })
+
     element.style[dimension] = isOpen ? "0" : this._getFullSizeOf(element, dimension, false)
     element.offsetHeight // Trigger reflow
 
     element.classList.add("collapsing")
     element.classList.remove("collapse", "show")
     toggleAttribute(element, "aria-expanded", isOpen)
-
-    element.addEventListener(
-      "transitionend",
-      () => {
-        element.classList.add("collapse")
-        element.classList.remove("collapsing")
-        isOpen && element.classList.add("show")
-
-        if (isOpen) {
-          element.style[dimension] = ""
-        }
-      },
-      { once: true }
-    )
 
     console.log(this._getFullSizeOf(element, dimension, true))
     element.style[dimension] = isOpen ? this._getFullSizeOf(element, dimension, true) : ""
