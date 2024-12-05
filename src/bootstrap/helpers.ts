@@ -28,3 +28,7 @@ export function toggleAttribute(element: Element, attribute: string, state: bool
     element.removeAttribute(attribute)
   }
 }
+
+export function isFormControl(element: Element): boolean {
+  return /input|select|option|textarea|form/i.test(element.tagName)
+}

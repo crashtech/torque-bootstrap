@@ -30,7 +30,7 @@ export default class TooltipController extends Controller {
       { name: "flip", options: { fallbackPlacements: ["top", "right", "bottom", "left"] } },
       { name: "offset", options: { offset: [0, 6] } },
       { name: "preventOverflow", options: { boundary: "clippingParents" } },
-    ]
+    ],
   }
 
   declare animationValue: boolean
@@ -86,21 +86,27 @@ export default class TooltipController extends Controller {
   }
 
   get popperLocalOptions(): PopperConfig {
-    let options: PopperConfig = { modifiers: [] }
+    const options: PopperConfig = { modifiers: [] }
 
     // TODO: Resolve RTL support
     this.hasPlacementValue && (options.placement = this.placementValue)
-    this.hasFallbackPlacementsValue && (options.modifiers.push({
-      name: "flip", options: { fallbackPlacements: this.fallbackPlacements }
-    }))
+    this.hasFallbackPlacementsValue &&
+      options.modifiers.push({
+        name: "flip",
+        options: { fallbackPlacements: this.fallbackPlacements },
+      })
 
-    this.hasOffsetValue && (options.modifiers.push({
-      name: "offset", options: { offset: this.offsetValue }
-    }))
+    this.hasOffsetValue &&
+      options.modifiers.push({
+        name: "offset",
+        options: { offset: this.offsetValue },
+      })
 
-    this.hasBoundaryValue && (options.modifiers.push({
-      name: "preventOverflow", options: { boundary: this.boundaryValue }
-    }))
+    this.hasBoundaryValue &&
+      options.modifiers.push({
+        name: "preventOverflow",
+        options: { boundary: this.boundaryValue },
+      })
 
     return options
   }
@@ -114,9 +120,14 @@ export default class TooltipController extends Controller {
         ...TooltipController.popperConfig.modifiers,
         ...custom.modifiers,
         { name: "arrow", options: { element: ".tooltip-arrow" } },
-        { name: "preSetPlacement", enabled: true, phase: "beforeMain", fn: (data) => {
-          this.tip.setAttribute("data-popper-placement", data.state.placement)
-        }},
+        {
+          name: "preSetPlacement",
+          enabled: true,
+          phase: "beforeMain",
+          fn: (data) => {
+            this.tip.setAttribute("data-popper-placement", data.state.placement)
+          },
+        },
       ],
     }
   }
@@ -254,11 +265,11 @@ export default class TooltipController extends Controller {
     for (const [selector, content] of Object.entries(this.contentForTemplate)) {
       const element = tip.querySelector(selector)
       if (element) {
-        this.htmlValue ? element.innerHTML = content : element.textContent = content
+        this.htmlValue ? (element.innerHTML = content) : (element.textContent = content)
       }
     }
 
     document.body.appendChild(tip)
-    return this.tipElement = tip
+    return (this.tipElement = tip)
   }
 }

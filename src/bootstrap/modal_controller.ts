@@ -90,7 +90,7 @@ export default class ModalController extends Controller {
     this.hasBackdrop && (isOpen ? this._createBackdrop() : this._removeBackdrop())
 
     this.modalTarget.style.display = "block"
-    isOpen && onTransitionEnd(this.modalTarget, () => this.modalTarget.style.display = "none")
+    !isOpen && onTransitionEnd(this.modalTarget, () => (this.modalTarget.style.display = "none"))
 
     toggleAttribute(this.modalTarget, "aria-hidden", !isOpen)
     toggleAttribute(this.modalTarget, "aria-modal", isOpen)

@@ -24,8 +24,8 @@ export default class ScrollspyController extends Controller {
 
   itemsMap: Map<string, HTMLElement> = new Map()
 
-  visibleEntryTop: number = 0
-  previousScrollTop: number = 0
+  visibleEntryTop = 0
+  previousScrollTop = 0
 
   // Properties
   get thresholdValues(): number[] {
@@ -79,17 +79,18 @@ export default class ScrollspyController extends Controller {
   }
 
   private _isDisabled(element: HTMLElement): boolean {
-    return element.classList.contains("disabled") ||
+    return (
+      element.classList.contains("disabled") ||
       (typeof element.ariaDisabled === "string" && element.ariaDisabled !== "false") ||
       (element.hasAttribute("disabled") && element.getAttribute("disabled") !== "false")
+    )
   }
 
   private _refresh() {
     this.observer?.disconnect()
-    const observer = this.observer = new IntersectionObserver(this._callback.bind(this), this.intersectionOptions)
+    const observer = (this.observer = new IntersectionObserver(this._callback.bind(this), this.intersectionOptions))
 
-    this.hasTargetsTarget &&
-      this.targetsTargets.forEach((element) => observer.observe(element))
+    this.hasTargetsTarget && this.targetsTargets.forEach((element) => observer.observe(element))
   }
 
   private _callback(entries: IntersectionObserverEntry[]) {
